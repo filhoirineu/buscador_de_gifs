@@ -4,6 +4,7 @@ import 'package:buscador_de_gifs/ui/gif_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -107,8 +108,10 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (context, index) {
         if (_search == null || index < snapshot.data["data"].length) {
           return GestureDetector(
-            child: Image.network(
-              snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: snapshot.data["data"][index]["images"]["fixed_height"]
+                  ["url"],
               height: 300,
               fit: BoxFit.cover,
             ),
@@ -121,12 +124,8 @@ class _HomePageState extends State<HomePage> {
               );
             },
             onLongPress: () {
-              List<String> listafile = [];
-
-              listafile.add(
+              Share.share(
                   snapshot.data["data"][index]["images"]["original"]["mp4"]);
-
-              Share.shareFiles(listafile, text: 'Great picture');
             },
           );
         } else {

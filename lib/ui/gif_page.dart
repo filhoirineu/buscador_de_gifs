@@ -16,7 +16,7 @@ class GifPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.share),
             onPressed: () {
-              Share.shareFiles(_gifData["images"]["fixed_height"]["url"]);
+              Share.share(_gifData["images"]["fixed_height"]["url"]);
             },
           ),
         ],
